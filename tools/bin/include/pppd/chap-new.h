@@ -1,4 +1,4 @@
-/*
+*
  * chap-new.c - New CHAP implementation.
  *
  * Copyright (c) 2003 Paul Mackerras. All rights reserved.
@@ -41,9 +41,9 @@
 #define CHAP_SUCCESS	3
 #define CHAP_FAILURE	4
 
-/*
+*
  * CHAP digest codes.
- */
+ *
 #define CHAP_MD5		5
 #define CHAP_MICROSOFT		0x80
 #define CHAP_MICROSOFT_V2	0x81
@@ -54,7 +54,7 @@
 #define MAX_CHALLENGE_LEN	64
 #define MAX_RESPONSE_LEN	64
 
-/* bitmask of supported algorithms */
+* bitmask of supported algorithms *
 #define MDTYPE_MICROSOFT_V2	0x1
 #define MDTYPE_MICROSOFT	0x2
 #define MDTYPE_MD5		0x4
@@ -70,26 +70,26 @@ extern int chap_mdtype_all;
     ((mdtype) & MDTYPE_MICROSOFT)? CHAP_MICROSOFT: \
     0
 
-/* Return the bit flag (lsb set) for our most preferred digest type. */
+* Return the bit flag (lsb set) for our most preferred digest type. */
 #define CHAP_MDTYPE(mdtype) ((mdtype) ^ ((mdtype) - 1)) & (mdtype)
 
-/* Return the bit flag for a given digest algorithm ID. */
+* Return the bit flag for a given digest algorithm ID. */
 #define CHAP_MDTYPE_D(digest) \
     ((digest) == CHAP_MICROSOFT_V2)? MDTYPE_MICROSOFT_V2: \
     ((digest) == CHAP_MICROSOFT)? MDTYPE_MICROSOFT: \
     ((digest) == CHAP_MD5)? MDTYPE_MD5: \
     0
 
-/* Can we do the requested digest? */
+* Can we do the requested digest? */
 #define CHAP_CANDIGEST(mdtype, digest) \
     ((digest) == CHAP_MICROSOFT_V2)? (mdtype) & MDTYPE_MICROSOFT_V2: \
     ((digest) == CHAP_MICROSOFT)? (mdtype) & MDTYPE_MICROSOFT: \
     ((digest) == CHAP_MD5)? (mdtype) & MDTYPE_MD5: \
     0
 
-/*
+*
  * The code for each digest type has to supply one of these.
- */
+ *
 struct chap_digest_type {
 	int code;
 
@@ -111,20 +111,20 @@ struct chap_digest_type {
 	struct chap_digest_type *next;
 };
 
-/* Hook for a plugin to validate CHAP challenge */
+* Hook for a plugin to validate CHAP challenge */
 extern int (*chap_verify_hook)(char *name, char *ourname, int id,
 			struct chap_digest_type *digest,
 			unsigned char *challenge, unsigned char *response,
 			char *message, int message_space);
 
-/* Called by digest code to register a digest type */
+* Called by digest code to register a digest type */
 extern void chap_register_digest(struct chap_digest_type *);
 
-/* Called by authentication code to start authenticating the peer. */
+* Called by authentication code to start authenticating the peer. */
 extern void chap_auth_peer(int unit, char *our_name, int digest_code);
 
-/* Called by auth. code to start authenticating us to the peer. */
+* Called by auth. code to start authenticating us to the peer. */
 extern void chap_auth_with_peer(int unit, char *our_name, int digest_code);
 
-/* Represents the CHAP protocol to the main pppd code */
+* Represents the CHAP protocol to the main pppd code */
 extern struct protent chap_protent;
