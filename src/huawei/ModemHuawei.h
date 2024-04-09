@@ -1,4 +1,4 @@
-/* Connect 3GPP */
+* Connect 3GPP *
 
 typedef enum {
     CONNECT_3GPP_CONTEXT_STEP_FIRST = 0,
