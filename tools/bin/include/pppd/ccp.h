@@ -1,4 +1,4 @@
-/*
+
  * ccp.h - Definitions for PPP Compression Control Protocol.
  *
  * Copyright (c) 1994-2002 Paul Mackerras. All rights reserved.
@@ -28,7 +28,7 @@
  * OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
  * $Id: ccp.h,v 1.12 2004/11/04 10:02:26 paulus Exp $
- */
+ *
 
 typedef struct ccp_options {
     bool bsd_compress;		/* do BSD Compress? */
